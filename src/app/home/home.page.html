@@ -1,0 +1,82 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      ETKİNLİKLER
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-list-header>
+    <ion-label>Özel Etkinlikler</ion-label>
+  </ion-list-header>
+  <ion-slides *ngIf="featEvents" pager="true" [options]="slideOpts">
+    <ion-slide *ngFor="let event of featEvents.bwEventList.events">
+    <ion-card>
+      <div *ngIf="hasImage(event.xproperties)">
+        <div *ngIf="event.xproperties.hasOwnProperty('2')">
+          <img *ngIf="event.xproperties['2'].hasOwnProperty('X-BEDEWORK-IMAGE')" src="{{event.xproperties[2]['X-BEDEWORK-IMAGE']['values']['text']}}"/>
+        </div>
+        <div *ngIf="event.xproperties.hasOwnProperty('3')">
+          <img *ngIf="event.xproperties['3'].hasOwnProperty('X-BEDEWORK-IMAGE')" src="{{event.xproperties[3]['X-BEDEWORK-IMAGE']['values']['text']}}"/>
+        </div>
+        <div *ngIf="event.xproperties.hasOwnProperty('4')"> 
+          <img *ngIf="event.xproperties['4'].hasOwnProperty('X-BEDEWORK-IMAGE')" src="{{event.xproperties[4]['X-BEDEWORK-IMAGE']['values']['text']}}"/>        
+        </div>
+        <div *ngIf="event.xproperties.hasOwnProperty('5')">
+          <img *ngIf="event.xproperties['5'].hasOwnProperty('X-BEDEWORK-IMAGE')" src="{{event.xproperties[5]['X-BEDEWORK-IMAGE']['values']['text']}}"/>        
+        </div>
+        
+      </div>  
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="12"></ion-col>
+        
+        <ion-col size="12">{{event.summary}}</ion-col>
+        <ion-col size="12">
+          <ion-col size="6">
+            <ion-icon name="location"></ion-icon> {{event.location.address}}
+          </ion-col>
+          <ion-col size="6"> 
+            <ion-icon name="calendar"></ion-icon> {{event.start.shortdate}} - {{event.start.time}}  
+          </ion-col>
+      </ion-col>
+    </ion-row>
+      </ion-card-content>
+    </ion-card>
+    </ion-slide>
+  </ion-slides>
+<div *ngIf="!featEvents">
+  <div class="ion-padding custom-skeleton">
+    <ion-card>
+      <ion-skeleton-text animated style="width: 100%;height: 300px;"></ion-skeleton-text>      
+      <ion-card-content>
+        <ion-col size="12">
+          <ion-skeleton-text animated style="width: 100%; float: left;"></ion-skeleton-text>
+
+        </ion-col>   
+        <ion-col size="12">
+          <ion-skeleton-text animated style="width: 100%; float: left;"></ion-skeleton-text>
+
+        </ion-col>      
+      </ion-card-content>
+    </ion-card>
+  </div>
+</div>
+  <ion-list-header>
+    <ion-label>Yaklaşan Etkinlikler</ion-label>
+  </ion-list-header>
+  <ion-list>
+    <ion-item *ngFor="let event of futEvents.bwEventList.events">
+      <ion-avatar slot="start">
+        <img src="https://ionicframework.com/docs/demos/api/card/madison.jpg">
+      </ion-avatar>
+      <ion-label> 
+        <h5 class="title">{{event.summary}}</h5>
+        <p>{{event.start.shortdate}} - {{event.start.time}}</p>
+      </ion-label>
+      <ion-icon slot="end" name="heart  "></ion-icon>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
